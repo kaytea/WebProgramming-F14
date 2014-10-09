@@ -1,0 +1,22 @@
+body{
+    font-family: sans-serif;
+    font-weight: 200;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1{
+	color: #d671f7;
+	font-weight: 200;
+	text-shadow: 1px 1px #636363;
+	margin-bottom: 10px;
+}
+
+#lyrics{
+	margin-top: 10px;
+}
+
+#lyrics img{
+	max-width: 350px;
+}

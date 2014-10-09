@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Daydream Believer</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">Daydream Believer</h1>
+
+<video src="http://www.cs.tufts.edu/comp/20/daydream_believer.webm" id="music_video" controls></video>
+<div id="lyrics"></div>
+
+<script>
+	var lyric = document.getElementById("lyrics");
+	var video = document.getElementById("music_video");
+
+	video.addEventListener("timeupdate", function (){
+		if (video.currentTime > 5.5 && video.currentTime < 14){
+			lyric.innerHTML = "Oh, I could hide 'neath the wings <br/> Of the bluebird as she sings.";
+		};
+		if (video.currentTime > 14.5 && video.currentTime < 21){
+			lyric.innerHTML = "The six o'clock alarm would never ring.";
+		};
+		if (video.currentTime > 21.5 && video.currentTime < 28){
+			lyric.innerHTML = 'But it rings and I rise, <br/> Wipe the sleep out of my eyes.';
+		};
+		if (video.currentTime > 30 && video.currentTime < 35){
+			lyric.innerHTML = "My shavin' razor's cold and it stings.";
+		};
+		if (video.currentTime > 37.5 && video.currentTime < 40){
+			lyric.innerHTML = "Cheer up, Sleepy Jean.";
+		};
+		if (video.currentTime > 41.5 && video.currentTime < 43){
+			lyric.innerHTML = "Oh, what can it mean.";
+		};
+		if (video.currentTime > 44 && video.currentTime < 50){
+			lyric.innerHTML = "To a daydream believer <br/> And a homecoming queen.";
+		};
+		if (video.currentTime > 55 && video.currentTime < 60){
+			lyric.innerHTML = "You once thought of me <br/> As a white knight on a steed.";
+		};
+		if (video.currentTime > 61 && video.currentTime < 68){
+			lyric.innerHTML = "Now you know how happy I can be.";
+		};
+		if (video.currentTime > 69 && video.currentTime < 77){
+			lyric.innerHTML = "Oh, and our good times start and end <br/> Without dollar one to spend.";
+		};
+		if (video.currentTime > 77.5 && video.currentTime < 80){
+			lyric.innerHTML = "But how much, baby, do we really need.";
+		};
+		if (video.currentTime > 85 && video.currentTime < 88){
+			lyric.innerHTML = "Cheer up, Sleepy Jean.";
+		};
+		if (video.currentTime > 89 && video.currentTime < 91){
+			lyric.innerHTML = "Oh, what can it mean.";
+		};
+		if (video.currentTime > 91.5 && video.currentTime < 100){
+			lyric.innerHTML = "To a daydream believer <br/> And a homecoming queen.";
+		};
+		if (video.currentTime > 102 && video.currentTime < 106){
+			lyric.innerHTML = "Cheer up, Sleepy Jean.";
+		};
+		if (video.currentTime > 106.5 && video.currentTime < 108){
+			lyric.innerHTML = "Oh, what can it mean.";
+		};
+		if (video.currentTime > 109 && video.currentTime < 115){
+			lyric.innerHTML = "To a daydream believer <br/> And a homecoming queen.";
+		};
+		if (video.currentTime > 119.5 && video.currentTime < 125){
+			lyric.innerHTML = '<img src="music.png" alt="music" /> <br/> [Instrumental interlude]';
+		};
+		if (video.currentTime > 127 && video.currentTime < 129){
+			lyric.innerHTML = "Cheer up, Sleepy Jean.";
+		};
+		if (video.currentTime > 131.2 && video.currentTime < 133){
+			lyric.innerHTML = "Oh, what can it mean.";
+		};
+		if (video.currentTime > 134 && video.currentTime < 144){
+			lyric.innerHTML = "To a daydream believer <br/> And a homecoming queen.";
+		};
+		if (video.currentTime > 144.5){
+			lyric.innerHTML = '<img src="monkees.png" alt="dancing_monkees" /> <br/> [Repeat and fade]';
+		};
+	});
+</script>
+</body>
+</html>	
