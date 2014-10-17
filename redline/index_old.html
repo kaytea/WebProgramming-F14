@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Geolocation Map Example</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
+		<link rel="stylesheet" href="geolocation_map_style.css" />
+		
+		<script>
+			var mbta_json = new XMLHttpRequest();
+			mbta_json.open('GET', 'http://developer.mbta.com/lib/rthr/red.json', true);
+			mbta_json.onload = function() {
+				placeTrains(this.responseText);
+			};
+			mbta_json.send();
+			results.TripList.Trips[]
+				results.TripList.Trips[].lat
+				results.TripList.Trips[].long
+
+
+
+
+				/*
+      function findMe(){
+        if (navigator.geolocation){
+          lati = position.coords.latitude;
+          longi = position.coords.longitude;
+          placeMarker.position = location;
+          placeMarker.title = "here you are!";
+        } else {
+          alert("Geolocation isn't working for you; bummer.")
+        }
+      }*/
+      /*var red_line;
+      var train_marker[];
+
+      var mbta_json = new XMLHttpRequest();
+      mbta_json.open('GET', 'http://developer.mbta.com/lib/rthr/red.json', true);
+      
+      mbta_json.onreadystatechange = function() {
+        red_line = JSON.parse(mbta_json.responseText);
+        for ( i = 0; i < red_line.length; i++){
+          train_marker[i] = new google.maps.Marker({position: {lat: red_line[i]['lat'], lng: red_line[i]['long']}, map: map});
+          //train_marker[i] = new google.maps.Marker({position: {lat: results.TripList.Trips[i].lat, lng: results.TripList.Trips[i].long}, map: map});
+        };
+      };
+      mbta_json.send();*/
+
+
+
+
+      
+			/*var myLat = 0;
+			var myLng = 0;
+			var request = new XMLHttpRequest();
+			var me = new google.maps.LatLng(myLat, myLng);
+			var myOptions = {
+						zoom: 13, // The larger the zoom number, the bigger the zoom
+						center: me,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+			var map;
+			var marker;
+			var infowindow = new google.maps.InfoWindow();
+			var places;
+			
+			function init()
+			{
+				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+				getMyLocation();
+			}
+			
+			function getMyLocation()
+			{
+				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+					navigator.geolocation.getCurrentPosition(function(position) {
+						myLat = position.coords.latitude;
+						myLng = position.coords.longitude;
+						renderMap();
+					});
+				}
+				else {
+					alert("Geolocation is not supported by your web browser.  What a shame!");
+				}
+			}
+
+			function renderMap()
+			{
+				me = new google.maps.LatLng(myLat, myLng);
+				
+				// Update map and go there...
+				map.panTo(me);
+	
+				// Create a marker
+				marker = new google.maps.Marker({
+					position: me,
+					title: "Here I Am!"
+				});
+				marker.setMap(map);
+					
+				// Open info window on click of marker
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(marker.title);
+					infowindow.open(map, marker);
+				});
+				
+				// Calling Google Places API
+				var request = {
+					location: me,
+					radius: '500',
+					types: ['food']
+				};
+				service = new google.maps.places.PlacesService(map);
+				service.search(request, callback);
+			}
+			
+			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
+			function callback(results, status)
+			{
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					alert("Got places back!");
+					places = results;
+					for (var i = 0; i < results.length; i++) {
+						createMarker(results[i]);
+					}
+				}
+			}
+			
+			function createMarker(place)
+			{
+				var placeLoc = place.geometry.location;
+				var marker = new google.maps.Marker({
+					map: map,
+					position: place.geometry.location
+				});
+
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.close();
+					infowindow.setContent(place.name);
+					infowindow.open(map, this);
+				});
+      }*/
+		</script>
+	</head>
+	
+	<body onload="init()">
+		<div id="map_canvas"></div>
+	</body>
+</html>
