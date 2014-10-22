@@ -95,7 +95,7 @@
                 var stuLoc = new google.maps.LatLng(stuLat, stuLng);
                 var stuMarker = new google.maps.Marker({
                     map: map, position: stuLoc,
-                    title: "Login: "student.login,
+                    title: "Login: " + student.login,
                     content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: " + student.created_at
                 });
                 google.maps.event.addListener(marker, 'click', function() {
