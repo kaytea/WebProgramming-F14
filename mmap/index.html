@@ -76,8 +76,8 @@
                     locData = JSON.parse(requestData.responseText);
                     var i = 0;
                     console.log(locData);
-                    while (locData.students[i] && i < 100){
-                        if (locData.characters[i] && i < 7 ) createCharMarker(locData.characters[i]);
+                    while (locData.students[i]){
+                        if (locData.characters[i]) createCharMarker(locData.characters[i]);
                         createStuMarker(locData.students[i]);
                         i++;
                     }
@@ -111,7 +111,7 @@
                     strokeOpacity: 1.0,
                     strokeWeight: 2
                 });
-                flightPath.setMap(map);
+                charPath.setMap(map);
             }
             function createStuMarker(student) {
                 var stuLat = student.lat;
