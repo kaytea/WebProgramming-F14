@@ -77,19 +77,23 @@
                 if (requestData.readyState == 4 && requestData.status == 200) {
                     locData = JSON.parse(requestData.responseText);
                     alert("Got data");
-                    plotPeople()
+                    var i = 0;
+                    while (locData.students[i]){
+                        //console.log(locData.students[i]);
+                        createStuMarker(locData.students[i]);
+                    }
                 }
                 else if (requestData.readyState == 4 && requestData.status == 500) {
                     alert("uh-oh! JSON isnt there");
                 }
             }
-            function plotPeople(){
+            /*function plotPeople(){
                 var i = 0;
                 while (locData.students[i]){
-                    console.log(locData.students[i]);
-                    //createStuMarker(locData.students[i]);
+                    //console.log(locData.students[i]);
+                    createStuMarker(locData.students[i]);
                 }
-            }
+            }*/
             function createStuMarker(student) {
                 var stuLat = student.lat;
                 var stuLng = student.lng;
