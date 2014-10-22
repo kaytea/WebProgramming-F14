@@ -79,7 +79,7 @@
                     alert("Got data");
                     var i = 1;
                     while (locData.students[i] && i < 100){
-                        if (locData.characters[i] && i =< 7 ) createCharMarker(locData.characters[i]);
+                        if (locData.characters[i] && i < 7 ) createCharMarker(locData.characters[i]);
                         createStuMarker(locData.students[i]);
                         i++;
                     }
@@ -101,7 +101,8 @@
                 var charLng = character.loc.longitude;
                 var charLoc = new google.maps.LatLng(charLat, charLng);
                 var charMarker = new google.maps.Marker({
-                    map: map, position: charLoc,
+                    map: map,
+                    position: charLoc,
                     title: "Login: " + charName,
                     content: "Located: "+ charLat +", "+ charLng +"<br/> Note: " + character.loc.note,
                     icon: charName +".png"
