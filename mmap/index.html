@@ -18,14 +18,53 @@
             var requestData = new XMLHttpRequest();
 
             function init() {
+                // Render map
                 myLoc = new google.maps.LatLng(myLat, myLng);
                 locationInfo = {
                     center: myLoc,
                     zoom: 14,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
+                
                 map = new google.maps.Map(document.getElementById('map_canvas'), locationInfo);
+
+                getMyLocation();
             }
+
+            function getMyLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(myLoca_fun, function() {
+                            alert("CANNOT GET POSITION-- Location set to Tufts University");
+                            myLat = 42.4069;
+                            myLng = -71.1198;
+                        });
+                }
+                else {
+                    alert("Geolocation not supported. bummer./n We'll just pretend you're at Tufts");
+                    myLat = 42.4069;
+                    myLng = -71.1198;
+                }
+            }
+
+            function myLoca_fun(me) {
+                alert("Getting Pos. 2");
+                myLat = me.coords.latitude;
+                myLng = me.coords.longitude;
+                myLoc = {lat: myLat, lng: myLng};
+                alert("New Location: " + myLat + ", " + myLng + ".");
+                map.panTo(myLoc);
+                myMarker = new google.maps.Marker({
+                    map: map,
+                    position: myLoc,
+                    title: "Here I Am!",
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                });
+                google.maps.event.addListener(myMarker, 'click', function() {
+                    infowindow.setContent(myMarker.title);
+                    infowindow.open(map, myMarker);
+                });
+            }
+            
             google.maps.event.addDomListener(window, "load", init);
         </script>
     </head>
