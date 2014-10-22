@@ -25,10 +25,8 @@
                     center: myLoc,
                     zoom: 14,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                
+                };                
                 map = new google.maps.Map(document.getElementById('map_canvas'), locationInfo);
-
                 getMyLocation();
             }
 
@@ -88,13 +86,7 @@
                     alert("uh-oh! JSON isnt there");
                 }
             }
-            /*function plotPeople(){
-                var i = 0;
-                while (locData.students[i]){
-                    //console.log(locData.students[i]);
-                    createStuMarker(locData.students[i]);
-                }
-            }*/
+
             function createCharMarker(character){
                 var charName = character.name;
                 var charLat = character.loc.latitude;
@@ -112,6 +104,14 @@
                     infowindow.setContent(charMarker.title +"<br/>"+ charMarker.content);
                     infowindow.open(map, this);
                 });
+                var charPath = new google.maps.Polyline({
+                    path: myLoc, charLoc,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+                flightPath.setMap(map);
             }
             function createStuMarker(student) {
                 var stuLat = student.lat;
@@ -128,6 +128,7 @@
                     infowindow.open(map, this);
                 });
             }
+
             //found at: http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
             function Dist_via_Haversine(){
                 Number.prototype.toRad = function() {
