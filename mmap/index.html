@@ -16,6 +16,7 @@
             var myLat = 42.3599611;
             var myLng = -71.0567528;
             var infowindow;
+            var locData;
             var requestData = new XMLHttpRequest();
 
             function init() {
@@ -65,6 +66,25 @@
                     infowindow.setContent(myMarker.title);
                     infowindow.open(map, myMarker);
                 });
+                getData();
+            }
+
+            function getData () {
+                requestData.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                requestData.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                requestData.onreadystatechange = dataReady;
+                requestData.send("login=SusanBones&lat=" + myLat + "&lng=" + myLng);
+            }
+
+            function dataReady() {
+                if (requestData.readyState == 4 && requestData.status == 200) {
+                    locData = JSON.parse(requestData.responseText);
+                    alert("Got data");
+                    console.log(locData);
+                }
+                else if (requestData.readyState == 4 && requestData.status == 500) {
+                    alert("uh-oh! JSON isnt there");
+                }
             }
 
             google.maps.event.addDomListener(window, "load", init);
