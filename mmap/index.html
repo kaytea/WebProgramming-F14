@@ -105,7 +105,7 @@
                     infowindow.open(map, this);
                 });
                 var charPath = new google.maps.Polyline({
-                    path: myLoc, charLoc,
+                    path: [myLoc, charLoc],
                     geodesic: true,
                     strokeColor: '#FF0000',
                     strokeOpacity: 1.0,
