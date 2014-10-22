@@ -78,7 +78,7 @@
                     locData = JSON.parse(requestData.responseText);
                     alert("Got data");
                     var i = 0;
-                    while (locData.students[i]){
+                    while (locData.students[i] && i < 100){
                         //console.log(locData.students[i]);
                         createStuMarker(locData.students[i]);
                         i++;
