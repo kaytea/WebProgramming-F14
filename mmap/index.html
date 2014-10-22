@@ -79,7 +79,7 @@
                     alert("Got data");
                     var i = 1;
                     while (locData.students[i] && i < 100){
-                        //console.log(locData.students[i]);
+                        if (locData.characters[i] && i >= 7 ) createCharMarker(locData.characters[i]);
                         createStuMarker(locData.students[i]);
                         i++;
                     }
@@ -95,18 +95,35 @@
                     createStuMarker(locData.students[i]);
                 }
             }*/
+            function createCharMarker(character){
+                var charName = character.name;
+                var charLat = character.loc.latitude;
+                var charLng = character.loc.longitude;
+                var charLoc = new google.maps.LatLng(charLat, charLng);
+                var charMarker = new google.maps.Marker({
+                    map: map, position: charLoc,
+                    title: "Login: " + charName,
+                    content: "Located: "+ charLat +", "+ charLng +"<br/> Note: " + character.loc.note,
+                    icon: charName +".png"
+                });
+                google.maps.event.addListener(charMarker, 'click', function() {
+                    infowindow.close();
+                    infowindow.setContent(charMarker.title +"<br/>"+ charMarker.content);
+                    infowindow.open(map, this);
+                });
+            }
             function createStuMarker(student) {
                 var stuLat = student.lat;
                 var stuLng = student.lng;
                 var stuLoc = new google.maps.LatLng(stuLat, stuLng);
                 var stuMarker = new google.maps.Marker({
                     map: map, position: stuLoc,
-                    title: "Login: " + student.login,
-                    content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: " + student.created_at
+                    title: "Login: "+ student.login,
+                    content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: "+ student.created_at
                 });
                 google.maps.event.addListener(stuMarker, 'click', function() {
                     infowindow.close();
-                    infowindow.setContent(stuMarker.title);
+                    infowindow.setContent(stuMarker.title +"<br/>"+ stuMarker.content);
                     infowindow.open(map, this);
                 });
             }
