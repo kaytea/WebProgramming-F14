@@ -104,8 +104,9 @@
                     infowindow.setContent(charMarker.title +"<br/>"+ charMarker.content);
                     infowindow.open(map, this);
                 });
+                var tracePath = [myLoc, charLoc]
                 var charPath = new google.maps.Polyline({
-                    path: [myLoc, charLoc],
+                    path: tracePath,
                     geodesic: true,
                     strokeColor: '#FF0000',
                     strokeOpacity: 1.0,
