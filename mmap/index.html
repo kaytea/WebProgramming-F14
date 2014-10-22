@@ -76,7 +76,7 @@
             function dataReady() {
                 if (requestData.readyState == 4 && requestData.status == 200) {
                     locData = JSON.parse(requestData.responseText);
-                    alert("Got data");
+                    alert("Got data; " + locData.characters[0].name);
                     var i = 1;
                     while (locData.students[i] && i < 100){
                         if (locData.characters[i] && i < 7 ) createCharMarker(locData.characters[i]);
