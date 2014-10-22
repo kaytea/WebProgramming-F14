@@ -54,7 +54,7 @@
                     map: map,
                     position: myLoc,
                     title: "SusanBones (ME)",
-                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    icon: 'arrow.png'
                 });
                 infowindow = new google.maps.InfoWindow();
                 google.maps.event.addListener(myMarker, 'click', function() {
@@ -108,8 +108,8 @@
                 var charPath = new google.maps.Polyline({
                     path: tracePath,
                     geodesic: true,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
+                    strokeColor: '#0099ff',
+                    strokeOpacity: 0.7,
                     strokeWeight: 2
                 });
                 charPath.setMap(map);
@@ -121,7 +121,8 @@
                 var stuMarker = new google.maps.Marker({
                     map: map, position: stuLoc,
                     title: "Login: "+ student.login,
-                    content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: "+ student.created_at
+                    content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: "+ student.created_at,
+                    icon: 'mm_20_blue.png'
                 });
                 google.maps.event.addListener(stuMarker, 'click', function() {
                     infowindow.close();
