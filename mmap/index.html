@@ -81,6 +81,7 @@
                     while (locData.students[i]){
                         //console.log(locData.students[i]);
                         createStuMarker(locData.students[i]);
+                        i++;
                     }
                 }
                 else if (requestData.readyState == 4 && requestData.status == 500) {
