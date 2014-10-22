@@ -5,7 +5,7 @@
     <head>
         <title> The Map </title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+        <script src="https://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry" type="text/javascript"></script>
         <link rel="stylesheet" href="geolocation_map_style.css" />
         <script>
             var me;
@@ -113,6 +113,7 @@
                     strokeWeight: 2
                 });
                 charPath.setMap(map);
+                console.log(charName + " / " + google.maps.geometry.spherical.computeDistanceBetween (myLoc, charLoc));
             }
             function createStuMarker(student) {
                 var stuLat = student.lat;
