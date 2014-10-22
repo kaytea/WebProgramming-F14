@@ -104,7 +104,7 @@
                     title: "Login: " + student.login,
                     content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: " + student.created_at
                 });
-                google.maps.event.addListener(marker, 'click', function() {
+                google.maps.event.addListener(stuMarker, 'click', function() {
                     infowindow.close();
                     infowindow.setContent(stuMarker.title);
                     infowindow.open(map, this);
