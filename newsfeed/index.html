@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+	<title>My News Feed</title>
+	<link rel="stylesheet" href="NFstyle.css" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var keyCount = 0;
+
+			while(localStorage.getItem('kkey'+ keyCount)) {
+				$('#news').prepend('<span>'+ localStorage.getItem('kkey'+ keyCount) +'</span><br/>');
+				keyCount = keyCount + 1;
+			}
+
+		    $('#msg:input').keyup( function (e) {
+		        if(e.keyCode == 13){
+			       	var tstamp = new Date();
+			       	//day = tstamp.toLocaleDateString("en-US");
+			       	time = tstamp.toLocaleTimeString("en-US", {hour12: true});
+			       	tstamp = /*day + ", " +*/ time;
+		        	var txtbox = document.getElementById("msg");
+		        	localStorage.setItem('kkey'+ keyCount, '<span>'+ tstamp +' - </span>'+ this.value);
+		    		$('#news').prepend('<span>'+ localStorage.getItem('kkey'+ keyCount) +'</span><br/>');
+		    		keyCount = keyCount + 1;
+		    		this.value = '';
+			    }
+		    });
+		    
+		});
+	</script>
+</head>
+
+<body>
+	<h1>My News Feed</h1>
+	<h3>My news update: <input type="text" id="msg" name="msg" size="30" /></h3>
+	<div id="news">News...</div>
+</body>
+</html>
