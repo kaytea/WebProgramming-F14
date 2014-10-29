@@ -1,0 +1,46 @@
+body{
+	font-family: Bitter, sans-serif;
+	background-color: #ccffcc;
+	margin: 0;
+	padding: 0;
+}
+
+h1{
+	color: white;
+	background-color: #00cccc;
+	border-radius: .7em;
+	padding: .4em;
+	margin-left: .4em;
+	display: inline-block;
+}
+h1:before{ content: '>>>';}
+
+h3{
+	margin-left: 20em;
+	margin-top: -2.5em;
+}
+
+#news{
+	border: 2px solid #00cccc;
+	background-color: white;
+	margin-left: 1em;
+	margin-bottom: 1em;
+	width: 43em;
+	padding: .5em;
+	min-height: 25em;
+}
+
+#news > span{
+	background-color: #ccffff;
+	padding: .7em;
+	display: block;
+	font-family: Karla, sans-serif;
+	margin-bottom: -.5em;
+}
+#news > span > span{
+	color: #636363;
+	font-size: .7em;
+	font-style: italic;
+}
+
+//breakpoint @750px
