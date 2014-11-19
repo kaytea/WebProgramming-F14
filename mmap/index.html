@@ -65,7 +65,7 @@
             }
 
             function getData () {
-                requestData.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                requestData.open("POST", "http://polar-river-3098.herokuapp.com/sendLocation", true);
                 requestData.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 requestData.onreadystatechange = dataReady;
                 requestData.send("login=SusanBones&lat=" + myLat + "&lng=" + myLng);
