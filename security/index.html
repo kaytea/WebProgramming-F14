@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Security</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <style>
+      body{ background-color: azure; font-family: sans-serif;}
+      h1, h2{ color: darkturquoise; }
+      h3{ color: mediumturquoise; }
+      li span{ color: darkturquoise; font-weight: 600; text-decoration: underline; }
+      .centered{ text-align: center;}
+    </style>
+  </head>
+  <body>
+    <h1 class="centered">ASSIGNMENT 4: Security Assessment</h1>
+    <h2>Introduction</h2>
+    <p>I will be working to assess how secure David Taus' herokuapp site/database--documenting users and their locations--is</p>
+    <h2>Methodology</h2>
+    <p>......</p>
+    <br/>
+    <h2>Findings</h2>
+    <h3>Abstract:</h3>
+    <p>This site is somewhat secure, but still has several areas which could use improvement. Users' coordinates cannot be assumed to be true because of the potential for falsified location information</p>
+    <br/>
+    <h3>Issue 1 -- Falsified Location Information</h3>
+    <ul>
+      <li>
+        <span>Location:</span> in /sendLocation when posting data to the database
+      </li>
+      <li>
+        <span>Severity:</span> Medium; data validity is not guarenteed, but not necessarily malicious
+      </li>
+      <li>
+        <span>Description:</span> I was able to run curl in terminal and submit false coordinates to the db
+      </li>
+      <li>
+        <span>Proof:</span> I couldnt't have been in the middle of the ocean yesterday
+      </li>
+      <li>
+        <span>Resolution:</span> Coordinates could be checked (and conformed) using reverse geolocation
+      </li>
+    </ul>
+
+    <h3>Issue 2 -- Cross-Origin-Access Allowance</h3>
+    <ul>
+      <li>
+        <span>Location:</span> in CORS modification: "Access-Control-Allow-Origin: '*'"
+      </li>
+      <li>
+        <span>Severity:</span>medium/high; while our data is not necessarily 'secret', any and everyone can have access to it--with that, if they all decide that they want to recieve the data on our server, our server could get overloaded with requests (which we are not prepaired for)
+      </li>
+      <li>
+        <span>Description:</span>
+      </li>
+      <li>
+        <span>Proof:</span>
+      </li>
+      <li>
+        <span>Resolution:</span> If we cared enough, we could set up a authorization-key system for poeple/organizations that want our data, and only allow them. Or just dont mark as a '*'; be more specific
+      </li>
+    </ul>
+
+    <h3>Issue 3 -- Cross-Site Scripting</h3>
+    <ul>
+      <li>
+        <span>Location:</span> in /sendLocation when posting data to the database
+      </li>
+      <li>
+        <span>Severity:</span>
+      </li>
+      <li>
+        <span>Description:</span>
+      </li>
+      <li>
+        <span>Proof:</span> Go to his site. You can't. You can, however, enjoy the musical stylings of youtube user, with his nice Kazookeylele randition of "The Final Countdown"
+      </li>
+      <li>
+        <span>Resolution:</span> check for tag characters '<', '>' and convert them to their 'symbolic' values -- '&lt ;', '&gt ;'
+      </li> 
+    </ul>
+
+    <h3>Issue 4 -- </h3>
+    <ul>
+      <li>
+        <span>Location:</span>
+      </li>
+      <li>
+        <span>Severity:</span>
+      </li>
+      <li>
+        <span>Description:</span>
+      </li>
+      <li>
+        <span>Proof:</span>
+      </li>
+      <li>
+        <span>Resolution:</span>
+      </li>
+    </ul>
+
+  </body>
+</html>
