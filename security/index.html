@@ -9,21 +9,22 @@
     <style>
       body{ background-color: azure; font-family: sans-serif;}
       h1, h2{ color: darkturquoise; }
+      h2{ font-style: italic;}
       h3{ color: mediumturquoise; }
-      li span{ color: darkturquoise; font-weight: 600; text-decoration: underline; }
+      li span{ color: darkturquoise; font-weight: 300; }
       .centered{ text-align: center;}
     </style>
   </head>
   <body>
     <h1 class="centered">ASSIGNMENT 4: Security Assessment</h1>
     <h2>Introduction</h2>
-    <p>I will be working to assess how secure David Taus' herokuapp site/database--documenting users and their locations--is</p>
+    <p>I will be working to assess how secure David Taus' herokuapp site/database is. This purpose of this app is to keep a log of users' check-ins and their particular geolocation.</p>
     <h2>Methodology</h2>
-    <p>......</p>
+    <p>I primarily focused on the potential for script injections, but also looked at other ways stored data could be influenced/manipulated.  I also considered the potential for </p>
     <br/>
     <h2>Findings</h2>
     <h3>Abstract:</h3>
-    <p>This site is somewhat secure, but still has several areas which could use improvement. Users' coordinates cannot be assumed to be true because of the potential for falsified location information</p>
+    <p>This site is somewhat secure, but still has several areas which could use improvement. Users' coordinates cannot be assumed to be true because of the potential for falsified location information.  The server can be overwhelmed with requests (and slowed as a result), because it allows any and all user requests for data. Malicious scripts can also be injected to the site when POSTing data--opening the door for anything from an HTML image to a redirecting script to be posted</p>
     <br/>
     <h3>Issue 1 -- Falsified Location Information</h3>
     <ul>
@@ -40,7 +41,7 @@
         <span>Proof:</span> I couldnt't have been in the middle of the ocean yesterday
       </li>
       <li>
-        <span>Resolution:</span> Coordinates could be checked (and conformed) using reverse geolocation
+        <span>Resolution:</span> Coordinates could be checked (and conformed) using reverse geolocation (but this is no small task, and perhaps not quite worth doing for a project as small scale as this containing rather trivial data)
       </li>
     </ul>
 
@@ -50,16 +51,16 @@
         <span>Location:</span> in CORS modification: "Access-Control-Allow-Origin: '*'"
       </li>
       <li>
-        <span>Severity:</span>medium/high; while our data is not necessarily 'secret', any and everyone can have access to it--with that, if they all decide that they want to recieve the data on our server, our server could get overloaded with requests (which we are not prepaired for)
+        <span>Severity:</span>medium/low; while our data is not necessarily 'secret', any and everyone can have access to it--with that, if they all decide that they want to recieve the data on our server, our server could get overloaded with requests (which we are not prepaired for)
       </li>
       <li>
-        <span>Description:</span>
+        <span>Description:</span> Anyone is able to access and manipulate data in the database
       </li>
       <li>
-        <span>Proof:</span>
+        <span>Proof:</span> I can access it from my mmap, and the reason for that is because of the all inclusive '*' allowance
       </li>
       <li>
-        <span>Resolution:</span> If we cared enough, we could set up a authorization-key system for poeple/organizations that want our data, and only allow them. Or just dont mark as a '*'; be more specific
+        <span>Resolution:</span> If we cared enough, we could set up a authorization-key system for poeple/organizations that want our data, and only allow them. Or just dont mark as a '*'; be more specific with what/who you want to be able to access your things
       </li>
     </ul>
 
@@ -69,37 +70,57 @@
         <span>Location:</span> in /sendLocation when posting data to the database
       </li>
       <li>
-        <span>Severity:</span>
+        <span>Severity:</span> High; sites can be rendered essentially useless if a malicious script is posted
       </li>
       <li>
-        <span>Description:</span>
+        <span>Description:</span> Injecting a javaScript script into the site can be done in almost any un-parsed, unfiltered data field (here, 'login') and will run in the window each time the page is rendered. An attacker may redirect the user to a different site, or even modify their localStorage.
       </li>
       <li>
-        <span>Proof:</span> Go to his site. You can't. You can, however, enjoy the musical stylings of youtube user, with his nice Kazookeylele randition of "The Final Countdown"
+        <span>Proof:</span> Go to his site. You can't. You can, however, enjoy the musical stylings of a youtube user, with his nice Kazookeylele randition of "The Final Countdown"
       </li>
       <li>
-        <span>Resolution:</span> check for tag characters '<', '>' and convert them to their 'symbolic' values -- '&lt ;', '&gt ;'
+        <span>Resolution:</span> check for tag characters '<', '>' and convert them to their 'symbolic' values -- <code>'& lt;', '& gt;'</code>
       </li> 
     </ul>
 
-    <h3>Issue 4 -- </h3>
+    <h3>Issue 4 -- XSS pt II: the [$ne] Database Query</h3>
     <ul>
       <li>
-        <span>Location:</span>
+        <span>Location:</span> /locations.json when entering a login query to search for
       </li>
       <li>
-        <span>Severity:</span>
+        <span>Severity:</span> Medium; this is another instance of cross-site scripting (which is always bad). It is less severe than the previous scenario because you aren't modifying the database's data, rather how it is (or isnt..) being handled
       </li>
       <li>
-        <span>Description:</span>
+        <span>Description:</span> i can enter <code>.../locations.json?login[$ne]=foobar</code> and get all results that are not equal to my query 'foobar' -- the reason for this 
       </li>
       <li>
         <span>Proof:</span>
       </li>
       <li>
-        <span>Resolution:</span>
+        <span>Resolution:</span> To fix, parse the login query for characters and convert the symbol to its encoded form (similar to the defense for Issue 3)
       </li>
     </ul>
-
+    <code class="centered">
+      ░░░░░░░░░▄░░░░░░░░░░░░░░▄░░░░<br/>
+      ░░░░░░░░▌▒█░░so░░░░░░░▄▀▒▌░░░<br/>
+      ░░░░░░░░▌▒▒█░░secure▄▀▒▒▒▐░░░<br/>
+      ░░░░░░░▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐░░░<br/>
+      ░░░░░▄▄▀▒░▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐░░░<br/>
+      ░░░▄▀▒▒▒░░░▒▒▒░░░▒▒▒▀██▀▒▌░░░<br/>
+      ░░▐▒▒▒▄▄▒▒▒▒░░░▒▒▒▒▒▒▒▀▄▒▒▌░░<br/>
+      ░░▌░░▌█▀▒▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐░░<br/>
+      ░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒░░░▒▒▒▀▄▌░<br/>
+      ░▌░▒▄██▄▒▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▌░<br/>
+      ▀▒▀▐▄█▄█▌▄░▀▒▒░such wow░▒▒▐░<br/>
+      ▐▒▒▐▀▐▀▒░▄▄▒▄▒▒▒▒▒▒░▒░▒░▒▒▒▒▌░<br/>
+      ▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒▒▒░▒░▒░▒▒▐░<br/>
+      ░▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒░▒░▒░▒░▒▒▒▌░<br/>
+      ░▐▒▒much▒▒▒▒▒▒▒▒░▒░▒░▒▒▄▒▒▐░░<br/>
+      ░░▀▄▒▒XSS▒▒▒▒▒▒░▒░▒░▒▄▒▒▒▒▌░░<br/>
+      ░░░░▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀░░░<br/>
+      ░░░░░░▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀░░░░░<br/>
+      ░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▀▀░░░░░░░░<br/>
+    </code>
   </body>
 </html>
