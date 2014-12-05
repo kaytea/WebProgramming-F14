@@ -5,7 +5,7 @@
     <head>
         <title> The Map </title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <script src="https://maps.google.com/maps/api/js?sensor=false" type="       text/javascript"></script>
+        <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
         <link rel="stylesheet" href="geolocation_map_style.css" />
         <script>
             var me;
@@ -20,46 +20,41 @@
             var requestData = new XMLHttpRequest();
 
             function init() {
-                // Render map
                 myLoc = new google.maps.LatLng(myLat, myLng);
                 locationInfo = {
                     center: myLoc,
                     zoom: 14,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                
+                };                
                 map = new google.maps.Map(document.getElementById('map_canvas'), locationInfo);
-
                 getMyLocation();
             }
 
             function getMyLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(myLoca_fun, function() {
-                            alert("CANNOT GET POSITION-- Location set to Tufts University");
-                            myLat = 42.4069;
-                            myLng = -71.1198;
-                        });
+                        alert("CANNOT GET POSITION-- Location set to Tufts University");
+                        myLat = 42.4069;
+                        myLng = -71.1198;
+                    });
                 }
                 else {
-                    alert("Geolocation not supported. bummer./n We'll just pretend you're at Tufts");
+                    alert("Geolocation not supported. bummer.<br/>We'll just pretend you're at Tufts");
                     myLat = 42.4069;
                     myLng = -71.1198;
                 }
             }
 
             function myLoca_fun(me) {
-                alert("Getting Pos. 2");
                 myLat = me.coords.latitude;
                 myLng = me.coords.longitude;
                 myLoc = {lat: myLat, lng: myLng};
-                alert("New Location: " + myLat + ", " + myLng + ".");
                 map.panTo(myLoc);
                 myMarker = new google.maps.Marker({
                     map: map,
                     position: myLoc,
-                    title: "Here I Am!",
-                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    title: "SusanBones (ME)",
+                    icon: 'arrow.png'
                 });
                 infowindow = new google.maps.InfoWindow();
                 google.maps.event.addListener(myMarker, 'click', function() {
@@ -70,7 +65,7 @@
             }
 
             function getData () {
-                requestData.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                requestData.open("POST", "http://polar-river-3098.herokuapp.com/sendLocation", true);
                 requestData.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 requestData.onreadystatechange = dataReady;
                 requestData.send("login=SusanBones&lat=" + myLat + "&lng=" + myLng);
@@ -79,15 +74,81 @@
             function dataReady() {
                 if (requestData.readyState == 4 && requestData.status == 200) {
                     locData = JSON.parse(requestData.responseText);
-                    alert("Got data");
-                    console.log(locData);
+                    var i = 0;
+                    while (locData.students[i]){
+                        if (locData.characters[i]) createCharMarker(locData.characters[i]);
+                        createStuMarker(locData.students[i]);
+                        i++;
+                    }
                 }
                 else if (requestData.readyState == 4 && requestData.status == 500) {
                     alert("uh-oh! JSON isnt there");
                 }
             }
 
+            function createCharMarker(character){
+                var charName = character.name;
+                var charLat = character.loc.latitude;
+                var charLng = character.loc.longitude;
+                var charLoc = new google.maps.LatLng(charLat, charLng);
+                var charMarker = new google.maps.Marker({
+                    map: map,
+                    position: charLoc,
+                    title: "Login: " + charName,
+                    content: "Located: "+ charLat +", "+ charLng +"<br/> Note: " + character.loc.note,
+                    icon: charName +".png"
+                });
+                google.maps.event.addListener(charMarker, 'click', function() {
+                    infowindow.close();
+                    infowindow.setContent(charMarker.title +"<br/>"+ charMarker.content);
+                    infowindow.open(map, this);
+                });
+                var tracePath = [myLoc, charLoc]
+                var charPath = new google.maps.Polyline({
+                    path: tracePath,
+                    geodesic: true,
+                    strokeColor: '#0099ff',
+                    strokeOpacity: 0.7,
+                    strokeWeight: 2
+                });
+                charPath.setMap(map);
+                //distArray[distArray.length] = Dist_via_Haversine(character.loc));
+                //distArray.sort(function(a, b){return a-b});
+            }
+            function createStuMarker(student) {
+                var stuLat = student.lat;
+                var stuLng = student.lng;
+                var stuLoc = new google.maps.LatLng(stuLat, stuLng);
+                var stuMarker = new google.maps.Marker({
+                    map: map, position: stuLoc,
+                    title: "Login: "+ student.login,
+                    content: "Located: "+ stuLat +", "+ stuLng +"<br/> Last Login @: "+ student.created_at,
+                    icon: 'mm_20_blue.png'
+                });
+                google.maps.event.addListener(stuMarker, 'click', function() {
+                    infowindow.close();
+                    infowindow.setContent(stuMarker.title +"<br/>"+ stuMarker.content);
+                    infowindow.open(map, this);
+                });
+            }
+
+            //found at: http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+            /*function Dist_via_Haversine(chara){
+                Number.prototype.toRad = function() {
+                   return this * Math.PI / 180;
+                }
+                var x1 = chara.latitude - myLat;
+                var dLat = x1.toRad();  
+                var x2 = chara.longitude - myLng;
+                var dLon = x2.toRad();  
+                var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+                                Math.cos(myLat.toRad()) * Math.cos(chara.latitude.toRad()) * 
+                                Math.sin(dLon/2) * Math.sin(dLon/2);  
+                var dist = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                return dist / 1.60934;  // <<converted to miles
+            }*/
             google.maps.event.addDomListener(window, "load", init);
+            //console.log(distArray);
         </script>
     </head>
 
