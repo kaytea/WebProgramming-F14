@@ -20,8 +20,8 @@
     <h2>Introduction</h2>
     <p>I will be working to assess how secure David Taus' herokuapp site/database is. This purpose of this app is to keep a log of users' check-ins and their particular geolocation.</p>
     <h2>Methodology</h2>
-    <p>I primarily focused on the potential for script injections, but also looked at other ways stored data could be influenced/manipulated.  I also considered the potential for </p>
-    <br/>
+    <p>I primarily focused on the potential for script injections, but also looked at other ways stored data could be influenced/manipulated.  I also considered the potential for the database to be filled beyond its capacity.  I did not use additional security tools.</p>
+    <hr/>
     <h2>Findings</h2>
     <h3>Abstract:</h3>
     <p>This site is somewhat secure, but still has several areas which could use improvement. Users' coordinates cannot be assumed to be true because of the potential for falsified location information.  The server can be overwhelmed with requests (and slowed as a result), because it allows any and all user requests for data. Malicious scripts can also be injected to the site when POSTing data--opening the door for anything from an HTML image to a redirecting script to be posted</p>
